@@ -4,11 +4,11 @@ document.getElementById("sort-btn").addEventListener("click", () => {
 
   chrome.runtime.sendMessage({ action: "sortBookmarks" }, (response) => {
     if (chrome.runtime.lastError) {
-      status.textContent = "❌ " + chrome.runtime.lastError.message;
+      status.textContent = "⚠️ " + chrome.runtime.lastError.message;
     } else if (response && response.status) {
       status.textContent = response.status;
     } else {
-      status.textContent = "✅ Bookmarks sorted!";
+      status.textContent = "⚠️ Didn't get any response";
     }
   });
 });

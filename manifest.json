@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Ultimate Bookmarks Manager",
-  "description": "Bookmarks manager for Chrome",
+  "name": "Ultimate Bookmarks Manager Extension",
+  "description": "",
   "author": "Kelish Rai",
   "version": "25.10.11",
   "permissions": ["bookmarks", "notifications"],
