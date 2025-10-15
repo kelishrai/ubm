@@ -1,26 +1,7 @@
 import { sortAllBookmarks } from "./sortBookmarks.js";
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("NoEx installed and ready.");
-});
-
-chrome.bookmarks.onChanged.addListener(async (id, bookmark) => {
-  try {
-    await sortAllBookmarks();
-    chrome.notifications.create({
-      type: "basic",
-      iconUrl: "icons/icon48.png",
-      title: "NoEx",
-      message: "✅ Bookmarks auto-sorted successfully!",
-    });
-  } catch (err) {
-    chrome.notifications.create({
-      type: "basic",
-      iconUrl: "icons/icon48.png",
-      title: "NoEx",
-      message: "⚠️ Auto-sort failed: " + err.message,
-    });
-  }
+  console.log("UBM is ready to take over your bookmarks!");
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -28,9 +9,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       try {
         await sortAllBookmarks();
-        sendResponse({ status: "✅ Bookmarks sorted successfully!" });
+        sendResponse({ status: 200 });
       } catch (err) {
-        sendResponse({ status: "⚠️ Error: " + err.message });
+        console.log("`chrome.runtime.onMessage` error:" + err);
+        sendResponse({ status: 400 });
       }
     })();
 

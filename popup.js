@@ -1,14 +1,19 @@
-document.getElementById("sort-btn").addEventListener("click", () => {
-  const status = document.getElementById("status");
-  status.textContent = "Sorting bookmarks...";
+const sortButton = document.getElementById("sort-button");
+
+sortButton.addEventListener("click", () => {
+  sortButton.style.backgroundColor = "#2563eb";
 
   chrome.runtime.sendMessage({ action: "sortBookmarks" }, (response) => {
     if (chrome.runtime.lastError) {
-      status.textContent = "⚠️ " + chrome.runtime.lastError.message;
-    } else if (response && response.status) {
-      status.textContent = response.status;
+      console.log(
+        "`chrome.runtime.lastError` error:" + chrome.runtime.lastError.message
+      );
+      sortButton.style.backgroundColor = "#dc2626";
+    } else if (response && response.status === 200) {
+      sortButton.style.backgroundColor = "#16a34a";
     } else {
-      status.textContent = "⚠️ Didn't get any response";
+      console.log("Didn't get any response");
+      sortButton.style.backgroundColor = "#dc2626";
     }
   });
 });
