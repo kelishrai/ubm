@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ultimate Bookmarks Manager</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <h2>Ultimate Bookmarks Manager</h2>
+
+    <button id="sort-button">Sort Bookmarks</button>
+
+    <div id="search-container">
+      <input type="text" id="search-input" placeholder="Search bookmarks..." />
+      <button id="clear-search">✕</button>
+    </div>
+
+    <div id="navigate">
+      <div id="navigate__header">
+        <button id="navigate__header__back-button">⬅ Back</button>
+        <h3 id="navigate__header__path-tile">Bookmarks</h3>
+      </div>
+
+      <div id="bookmark-list"></div>
+    </div>
+
+    <script src="scripts/sort.js"></script>
+    <script src="scripts/navigate.js"></script>
+  </body>
+</html>

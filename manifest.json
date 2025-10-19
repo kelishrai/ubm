@@ -6,7 +6,7 @@
   "version": "25.10.11",
   "permissions": ["bookmarks", "notifications"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -14,13 +14,13 @@
     }
   },
   "background": {
-    "service_worker": "services.js",
+    "service_worker": "src/services.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["src/content.js"]
     }
   ]
 }
