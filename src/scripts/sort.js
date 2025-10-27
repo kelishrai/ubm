@@ -1,14 +1,3 @@
-const sortButton = document.getElementById("sort-button");
-
-sortButton.addEventListener("click", async () => {
-  try {
-    await sortAllBookmarks();
-    sortButton.style.backgroundColor = "#16a34a";
-  } catch {
-    sortButton.style.backgroundColor = "#dc2626";
-  }
-});
-
 async function sortAllBookmarks() {
   const [root] = await chrome.bookmarks.getTree();
   await sortNode(root);
@@ -40,3 +29,5 @@ async function sortNode(node) {
     await sortNode(folder);
   }
 }
+
+export { sortAllBookmarks };
