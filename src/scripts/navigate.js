@@ -1,23 +1,24 @@
-let currentFolderId = "0";
-let folderStack = [];
-const list = document.getElementById("bookmark-list");
+const list = document.getElementById("navigate__bookmark-list");
 const pathTitle = document.getElementById("navigate__header__path-tile");
-const backButton = document.getElementById("navigate__header__back-button");
-const searchInput = document.getElementById("search-input");
-const clearSearch = document.getElementById("clear-search");
+const navigateBackBtn = document.getElementById("navigate__header__back-button");
+const searchInput = document.getElementById("search__input");
+const searchClearBtn = document.getElementById("search__clear-button");
+
+let currentFolderId = "1";
+let folderStack = [];
 
 function renderBookmarks(folderId) {
   chrome.bookmarks.getChildren(folderId, (nodes) => {
     list.innerHTML = "";
 
     if (!nodes.length) {
-      list.innerHTML = '<div class="empty">(empty)</div>';
+      list.innerHTML = '<div class="bookmark-list__empty">(empty)</div>';
       return;
     }
 
     for (const node of nodes) {
       const div = document.createElement("div");
-      div.className = "item " + (node.url ? "bookmark" : "folder");
+      div.className = "bookmark-list__item " + (node.url ? "bookmark-list__bookmark" : "bookmark-list__folder");
 
       if (!node.url) {
         const icon = document.createElement("img");
@@ -40,7 +41,7 @@ function renderBookmarks(folderId) {
     }
 
     pathTitle.textContent = folderId === "0" ? "Bookmarks" : "Folder";
-    backButton.style.display = folderStack.length > 0 ? "inline-block" : "none";
+    navigateBackBtn.style.display = folderStack.length > 0 ? "inline-block" : "none";
   });
 }
 
@@ -57,7 +58,7 @@ function goBack() {
   }
 }
 
-backButton.addEventListener("click", goBack);
+navigateBackBtn.addEventListener("click", goBack);
 renderBookmarks(currentFolderId);
 
 /* Bookmarks search */
@@ -69,18 +70,18 @@ searchInput.addEventListener("input", () => {
   clearTimeout(searchTimeout);
 
   if (query === "") {
-    clearSearch.style.display = "none";
+    searchClearBtn.style.display = "none";
     renderBookmarks(currentFolderId);
     return;
   }
 
-  clearSearch.style.display = "inline-block";
+  searchClearBtn.style.display = "inline-block";
   searchTimeout = setTimeout(() => performSearch(query), 200);
 });
 
-clearSearch.addEventListener("click", () => {
+searchClearBtn.addEventListener("click", () => {
   searchInput.value = "";
-  clearSearch.style.display = "none";
+  searchClearBtn.style.display = "none";
   renderBookmarks(currentFolderId);
 });
 
@@ -94,7 +95,7 @@ async function performSearch(query) {
   list.innerHTML = "";
 
   if (!bookmarks.length) {
-    list.innerHTML = '<div class="empty">No results found</div>';
+    list.innerHTML = '<div class="bookmark-list__empty">No results found</div>';
     pathTitle.textContent = `Search: "${query}"`;
     return;
   }
@@ -106,18 +107,18 @@ async function performSearch(query) {
   for (let i = 0; i < bookmarks.length; i++) {
     const node = bookmarks[i];
     const div = document.createElement("div");
-    div.className = "item bookmark fade-in";
+    div.className = "bookmark-list__item bookmark-list__bookmark fade-in";
     div.style.flexDirection = "column";
     div.style.alignItems = "flex-start";
 
     const pathElem = document.createElement("div");
-    pathElem.className = "item-path";
+    pathElem.className = "bookmark-list__item-path";
     pathElem.textContent = paths[i] || "Bookmarks";
     div.appendChild(pathElem);
 
     const title = document.createElement("div");
     title.textContent = node.title || "(untitled)";
-    title.className = "item-title";
+    title.className = "bookmark-list__item-title";
     div.appendChild(title);
 
     div.onclick = () => chrome.tabs.create({ url: node.url });
@@ -125,7 +126,7 @@ async function performSearch(query) {
   }
 
   pathTitle.textContent = `Search: "${query}"`;
-  backButton.style.display = folderStack.length > 0 ? "inline-block" : "none";
+  navigateBackBtn.style.display = folderStack.length > 0 ? "inline-block" : "none";
 }
 
 async function getBookmarkPath(parentId) {

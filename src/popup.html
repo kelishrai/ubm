@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h2>Ultimate Bookmarks Manager</h2>
+    <h1>Ultimate Bookmarks Manager</h1>
 
-    <button id="sort-button">Sort Bookmarks</button>
+    <button id="sort-button" class="default-box-shadow">Sort Bookmarks</button>
 
-    <div id="search-container">
-      <input type="text" id="search-input" placeholder="Search bookmarks..." />
-      <button id="clear-search">✕</button>
+    <div id="search" class="default-box-shadow">
+      <input type="text" id="search__input" placeholder="Search bookmarks..." />
+      <button id="search__clear-button">x</button>
     </div>
 
     <div id="navigate">
@@ -21,10 +21,10 @@
         <h3 id="navigate__header__path-tile">Bookmarks</h3>
       </div>
 
-      <div id="bookmark-list"></div>
+      <div id="navigate__bookmark-list"></div>
     </div>
 
-    <script src="scripts/popup.js"></script>
-    <script src="scripts/navigate.js"></script>
+    <script src="scripts/popup.js" type="module"></script>
+    <script src="scripts/navigate.js" type="module"></script>
   </body>
 </html>
