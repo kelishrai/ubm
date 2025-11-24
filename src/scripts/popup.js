@@ -1,5 +1,9 @@
 import { sortAllBookmarks } from "./sort.js";
 
+window.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("search__input").focus();
+});
+
 const sortButton = document.getElementById("sort-button");
 
 sortButton.addEventListener("click", async () => {

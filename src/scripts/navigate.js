@@ -131,7 +131,7 @@ async function performSearch(query) {
 
 async function getBookmarkPath(parentId) {
   return new Promise((resolve) => {
-    if (!parentId || parentId === "0") return resolve("Bookmarks");
+    if (!parentId || parentId === "1") return resolve("Bookmarks");
 
     chrome.bookmarks.get(parentId, (parentNodes) => {
       const parent = parentNodes?.[0];
