@@ -10,10 +10,10 @@ async function sortNode(node) {
   const bookmarks = node.children.filter((c) => c.url);
 
   folders.sort((a, b) =>
-    a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    a.title.localeCompare(b.title, undefined, { caseFirst: "upper" })
   );
   bookmarks.sort((a, b) =>
-    a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    a.title.localeCompare(b.title, undefined, { caseFirst: "upper" })
   );
 
   const sorted = [...folders, ...bookmarks];
